@@ -21,6 +21,18 @@ div {
 }
 
 .rssi {
-    font-size: 3.5rem;
-    font-weight: bold;
+    font-size: 1.25rem;
+
+    span {
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+}
+
+#rssi-avg {
+    color: oklch(0.6 0.2 30);
+
+    &.stable {
+        color: oklch(0.6 0.2 160);
+    }
 }

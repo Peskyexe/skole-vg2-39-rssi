@@ -1,12 +1,17 @@
+const rssiElement = document.getElementById("rssi");
+const rssiAvgElement = document.getElementById("rssi-avg");
+const minmaxElement = document.getElementById("minmax-gap");
+
 const rssiValues = [];
-const rssiMaxHistory = 8
+const rssiMaxHistory = 8;
+const minmaxStableThreshold = 2;
 
 async function updateRSSI() {
     try {
         const response = await fetch("/rssi");
         const data = await response.json();
 
-        document.getElementById("rssi").textContent = data.rssi + " dBm";
+        rssiElement.textContent = data.rssi;
 
         rssiValues.push(data.rssi);
         if (rssiValues.length > rssiMaxHistory) {
@@ -14,19 +19,26 @@ async function updateRSSI() {
         }
 
         const average = rssiValues.reduce((sum, value) => sum + value, 0) / rssiValues.length;
+        rssiAvgElement.textContent = average.toFixed(1);
+
         const max = Math.max(...rssiValues);
         const min = Math.min(...rssiValues);
-
         const minmaxGap = max - min;
 
-        document.getElementById("rssi-avg").textContent = average.toFixed(1) + " dBm";
-        document.getElementById("minmax-gap").textContent = minmaxGap;
+        minmaxElement.textContent = minmaxGap;
+
+        if (minmaxGap <= minmaxStableThreshold) {
+            rssiAvgElement.classList.add("stable");
+        } else {
+            rssiAvgElement.classList.remove("stable");
+        }
+
     } catch (error) {
-        document.getElementById("rssi").textContent = "Offline";
-        document.getElementById("rssi-avg").textContent = "Offline";
-        document.getElementById("rssi-avg").textContent = "--";
+        rssiElement.textContent = "--";
+        rssiAvgElement.textContent = "--";
+        minmaxElement.textContent = "--";
     }
 }
 
-// updateRSSI();
-// setInterval(updateRSSI, 500);
+updateRSSI();
+setInterval(updateRSSI, 500);
