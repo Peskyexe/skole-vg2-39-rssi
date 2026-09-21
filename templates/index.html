@@ -4,34 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WiFi RSSI</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            font-family: sans-serif;
-            text-align: center;
-            margin-top: 0.5rem;
-        }
 
-        section {
-            width: auto;
-            display: flex;
-            justify-content: space-evenly;
-            gap: 3rem;
-        }
-
-        div {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .rssi {
-            font-size: 3.5rem;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+    <script src="{{ url_for('static', filename='scripts/index.js') }}" defer></script>
 </head>
 <body>
     <h1>Wi-Fi Signal</h1>
@@ -41,39 +16,13 @@
             <span class="rssi" id="rssi">-- dBm</span>
         </div>
         <div>
-            <h2>Last 20 Samples</h2>
+            <h2>Last 8 Samples</h2>
             <span class="rssi" id="rssi-avg">-- dBm</span>
         </div>
+        <div>
+            <h2>Min Max gap</h2>
+            <span class="rssi" id="minmax-gap">--</span>
+        </div>
     </section>
-
-    <script>
-        const rssiValues = [];
-
-        async function updateRSSI() {
-            try {
-                const response = await fetch("/rssi");
-                const data = await response.json();
-
-                document.getElementById("rssi").textContent =
-                    data.rssi + " dBm";
-
-                rssiValues.push(data.rssi);
-                if (rssiValues.length > 20) {
-                    rssiValues.shift();
-                }
-
-                const average = rssiValues.reduce((sum, value) => sum + value, 0) /
-                    rssiValues.length;
-                document.getElementById("rssi-avg").textContent =
-                    average.toFixed(1) + " dBm";
-            } catch (error) {
-                document.getElementById("rssi").textContent = "Offline";
-                document.getElementById("rssi-avg").textContent = "Offline";
-            }
-        }
-
-        updateRSSI();
-        setInterval(updateRSSI, 500);
-    </script>
 </body>
 </html>
