@@ -5,24 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WiFi RSSI</title>
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
-    <script src="{{ url_for('static', filename='scripts/index.js') }}" defer></script>
+
+    <script src="{{ url_for('static', filename='scripts/index.js') }}" type="module"></script>
 </head>
 <body>
     <h1>Wi-Fi Signal</h1>
-    <section>
+    <section id="stats-wrapper">
         <div>
-            <h2>Current</h2>
-            <span class="rssi"><span id="rssi">--</span> dBm</span>
+            <h2 class="label">RSSI</h2>
+            <span class="suffix"><span class="value" id="rssi">--</span> dBm</span>
         </div>
         <div>
-            <h2>Recent avg.</h2>
-            <span class="rssi"><span id="rssi-avg">--</span> dBm</span>
+            <h2 class="label">Recent RSSI avg.</h2>
+            <span class="suffix"><span class="value" id="rssi-avg">--</span> dBm</span>
         </div>
         <div>
-            <h2>Recent min-max gap</h2>
-            <span class="rssi"><span id="minmax-gap">--</span></span>
+            <h2 class="label">Distance</h2>
+            <span class="suffix"><span class="value" id="distance">--</span> m</span>
         </div>
+        <div>
+            <h2 class="label">Recent Distance Avg.</h2>
+            <span class="suffix"><span class="value" id="distance-avg">--</span> m</span>
+        </div>
+    </section>
+    <section id="position-display">
+        <div id="position-indicator"></div>
+        <div class="big grid-line"><span class="suffix"><span class="value">0</span>m</span></div>
+        <div class="grid-line"></div>
+        <div class="big grid-line"><span class="suffix"><span class="value">2</span>m</span></div>
+        <div class="grid-line"></div>
+        <div class="big grid-line"><span class="suffix"><span class="value">4</span>m</span></div>
+        <div class="grid-line"></div>
+        <div class="big grid-line"><span class="suffix"><span class="value">6</span>m</span></div>
+        <div class="grid-line"></div>
+        <div class="big grid-line"><span class="suffix"><span class="value">8</span>m</span></div>
+        <div class="grid-line"></div>
+        <div class="big grid-line"><span class="suffix"><span class="value">10</span>m</span></div>
     </section>
 </body>
 </html>

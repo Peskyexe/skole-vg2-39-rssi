@@ -1,38 +1,107 @@
 body {
+    background-color: var(--bg-2);
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
+    margin-top: 1rem;
+
     font-family: sans-serif;
-    text-align: center;
-    margin-top: 0.5rem;
 }
 
-section {
-    width: auto;
+#stats-wrapper {
     display: flex;
-    justify-content: space-evenly;
-    gap: 3rem;
-}
+    gap: 2.75rem;
 
-div {
-    display: flex;
-    flex-direction: column;
-}
-
-.rssi {
-    font-size: 1.25rem;
-
-    span {
-        font-size: 2.5rem;
-        font-weight: bold;
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
-#rssi-avg {
-    color: oklch(0.6 0.2 30);
+.label {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.suffix {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.value {
+    color: var(--text);
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+#distance-avg, #rssi-avg {
+    color: var(--unstable);
 
     &.stable {
-        color: oklch(0.6 0.2 160);
+        color: var(--stable);
     }
+}
+
+#position-display {
+    --width: 750px;
+    --grid-lines: 11;
+
+    background-color: var(--bg-1);
+
+    height: 100px;
+    width: var(--width);
+
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    .grid-line {
+        position: relative;
+        height: 100%;
+        width: 0px;
+        border: 1px solid var(--border-2);
+
+        &.big {
+            border-color: var(--border-1);
+
+            > span {
+                color: var(--text-muted);
+
+                position: absolute;
+                transform: translateX(-50%);
+                bottom: -22px;
+
+                display: flex;
+                gap: 1px;
+                align-items: flex-end;
+            }
+
+            .value {
+                color: var(--text-muted);
+                font-size: 1rem;
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+#position-indicator {
+    --size: 10px;
+    --position: 0px;
+
+    background-color: oklch(0.65 0.15 250);
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left: var(--position);
+    z-index: 999;
+
+    height: var(--size);
+    width: var(--size);
+    border-radius: 25%;
 }
