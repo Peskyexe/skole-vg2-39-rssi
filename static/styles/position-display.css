@@ -1,0 +1,84 @@
+#position-display {
+    --width: 750px;
+    --grid-lines: 11;
+
+    background-color: var(--bg-1);
+
+    height: 100px;
+    width: var(--width);
+
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    .grid-line {
+        position: relative;
+        height: 100%;
+        width: 0px;
+        border: 1px solid var(--border-2);
+
+        &.big {
+            border-color: var(--border-1);
+
+            > span {
+                color: var(--text-muted);
+
+                position: absolute;
+                transform: translateX(-50%);
+                bottom: -22px;
+
+                display: flex;
+                gap: 1px;
+                align-items: flex-end;
+            }
+
+            .value {
+                color: var(--text-muted);
+                font-size: 1rem;
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+@property --position {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+}
+
+.position-indicator {
+    --size: 14px;
+
+    background-color: oklch(0.65 0.15 250);
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(calc(var(--position) + -50%));
+    left: 0px;
+    z-index: 999;
+
+    height: var(--size);
+    width: var(--size);
+    border-radius: 30%;
+
+    /* transition: 100ms cubic-bezier(0.002, 0.859, 0.118, 0.970);
+    transition-property: transform; */
+}
+
+#position-indicator-1 {
+    z-index: 100;
+    --size: 16px;
+}
+
+#position-indicator-2 {
+    z-index: 90;
+    --size: 10px;
+    background-color: oklch(0.84 0.1 255);
+}
+
+#position-indicator-3 {
+    z-index: 80;
+    --size: 10px;
+    background-color: oklch(0.89 0.08 255);
+}
